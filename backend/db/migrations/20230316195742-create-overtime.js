@@ -2,24 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Overtimes', {
-      id: {
+    await queryInterface.createTable('overtimes', {
+      overtime_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      overtime_id: {
-        type: Sequelize.INTEGER
-      },
-      description: {
-        type: Sequelize.TEXT
-      },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'user_id'
+        }
       },
-      status_id: {
-        type: Sequelize.INTEGER
+      reason: {
+        type: Sequelize.STRING
+      },
+      tanggal: {
+        type: Sequelize.DATE
+      },
+      status: {
+        type: Sequelize.ENUM('pending', 'approved', 'rejected')
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Overtimes');
+    await queryInterface.dropTable('overtimes');
   }
 };

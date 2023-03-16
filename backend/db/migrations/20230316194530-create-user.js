@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Permissions', {
-      id: {
+    await queryInterface.createTable('users', {
+      user_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -11,6 +11,16 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      password: {
+        type: Sequelize.STRING
+      },
+      role: {
+        type: Sequelize.ENUM('employee', 'hr'),
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Permissions');
+    await queryInterface.dropTable('users');
   }
 };
